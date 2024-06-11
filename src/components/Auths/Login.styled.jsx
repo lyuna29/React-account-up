@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 100vw;
-  height: 1000px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +13,7 @@ export const StLayout = styled.div`
   border-radius: 30px;
   width: 500px;
   height: 650px;
-  background-color: #9d9d9d;
+  background-color: #cecece;
 `;
 
 export const StSignup = styled.div`
@@ -23,7 +22,7 @@ export const StSignup = styled.div`
   border-radius: 30px;
   width: 500px;
   height: 650px;
-  background-color: #9d9d9d;
+  background-color: #cecece;
 `;
 
 export const StLogo = styled.img`
