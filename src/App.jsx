@@ -4,6 +4,8 @@ import Detail from "./pages/Detail";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import Login from "./components/Auths/Login";
+import SignUp from "./components/Auths/SignUp";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -78,6 +80,8 @@ function App() {
             path="/detail/:id"
             element={<Detail expenses={expenses} setExpenses={setExpenses} />}
           />
+          <Route path="/auths/login" element={<Login />} />
+          <Route path="/auths/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </>
