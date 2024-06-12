@@ -1,11 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Login from "./components/Auths/Login";
 import SignUp from "./components/Auths/SignUp";
+import { getUserInfo } from "../lib/api/auth";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -68,6 +69,21 @@ function App() {
     },
   ]);
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getUserInfo().then((res) => {
+      if (res) {
+        setUser({
+          userId: res.id,
+          nickname: res.nickname,
+          avatar: res.avatar,
+        });
+      }
+    });
+  }, []);
+  console.log("로그인된 유저정보:", user);
+
   return (
     <>
       <BrowserRouter>
@@ -80,7 +96,7 @@ function App() {
             path="/detail/:id"
             element={<Detail expenses={expenses} setExpenses={setExpenses} />}
           />
-          <Route path="/auths/login" element={<Login />} />
+          <Route path="/auths/login" element={<Login setUser={setUser} />} />
           <Route path="/auths/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>

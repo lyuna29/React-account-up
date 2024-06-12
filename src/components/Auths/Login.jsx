@@ -1,19 +1,24 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "/Users/lyuna/Desktop/assignment-3-answer-props-drilling/src/assets/logo.png";
 import { StBtn, StInput, StLayout, StLogo, Wrapper } from "./Login.styled";
+import { login } from "../../../lib/api/auth";
 
-const Login = () => {
+export default function Login({ setUser }) {
   const navigate = useNavigate();
-  const idRef = useRef();
-  const passwordRef = useRef();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogoClick = () => {
     navigate("/auths/logIn");
   };
 
   const handleLogInClick = async () => {
-    navigate("/");
+    const { userId, nickname, avatar } = await login({
+      id: id,
+      password: password,
+    });
+    setUser({ userId, nickname, avatar });
   };
 
   const handleSignUpClick = async () => {
@@ -24,8 +29,16 @@ const Login = () => {
       <StLayout>
         <StInput>
           <StLogo onClick={handleLogoClick} src={logo} alt="로고이미지" />
-          <input type="text" placeholder="이메일" ref={idRef} />
-          <input type="password" placeholder="비밀번호" ref={passwordRef} />
+          <input
+            type="text"
+            onChange={(e) => setId(e.target.value)}
+            placeholder="이메일"
+          />
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+          />
         </StInput>
         <StBtn>
           <button type="submit" onClick={handleLogInClick}>
@@ -38,6 +51,4 @@ const Login = () => {
       </StLayout>
     </Wrapper>
   );
-};
-
-export default Login;
+}
