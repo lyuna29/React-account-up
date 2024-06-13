@@ -2,7 +2,8 @@ import { Section } from "../pages/Home";
 import styled from "styled-components";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import { postExpense } from "../../lib/api/espense";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 const InputRow = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -45,13 +46,21 @@ const AddButton = styled.button`
   }
 `;
 
-export default function CreateExpense({ month, expenses, setExpenses }) {
+export default function CreateExpense({ user, month }) {
   const [newDate, setNewDate] = useState(
     `2024-${String(month).padStart(2, "0")}-01`
   );
   const [newItem, setNewItem] = useState("");
   const [newAmount, setNewAmount] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const queryClient = new QueryClient();
+
+  const mutation = useMutation({
+    mutationFn: postExpense,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["expense"]);
+    },
+  });
 
   const handleAddExpense = () => {
     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -73,9 +82,11 @@ export default function CreateExpense({ month, expenses, setExpenses }) {
       item: newItem,
       amount: parsedAmount,
       description: newDescription,
+      createdBy: user.id,
     };
 
-    setExpenses([...expenses, newExpense]);
+    mutation.mutate(newExpense);
+
     setNewDate(`2024-${String(month).padStart(2, "0")}-01`);
     setNewItem("");
     setNewAmount("");
