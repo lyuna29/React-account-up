@@ -70,6 +70,22 @@
       "item": "휴가",
       "amount": 100000,
       "description": "내일배움휴가"
+    },
+    {
+      "id": "3e161e44-007a-49f8-b1e0-f7fd1e21fbe1",
+      "month": 1,
+      "date": "2024-01-15",
+      "item": "덕질",
+      "amount": 20000,
+      "description": "앨범삼"
+    },
+    {
+      "id": "ac495ef4-21a4-45cc-8241-90fb71968957",
+      "month": 1,
+      "date": "2024-01-10",
+      "item": "앨범",
+      "amount": 20000,
+      "description": "앨범삼"
     }
   ]
 }

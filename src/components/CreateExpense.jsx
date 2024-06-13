@@ -4,6 +4,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { postExpense } from "../../lib/api/espense";
 import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 const InputRow = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -54,11 +55,13 @@ export default function CreateExpense({ user, month }) {
   const [newAmount, setNewAmount] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const queryClient = new QueryClient();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: postExpense,
     onSuccess: () => {
       queryClient.invalidateQueries(["expense"]);
+      navigate(0);
     },
   });
 
