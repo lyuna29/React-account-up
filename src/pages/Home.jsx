@@ -28,12 +28,8 @@ export default function Home({ expenses, setExpenses }) {
     (expense) => expense.month === month
   );
 
-  const mainloginclick = () => {
-    navigate("/auths/login");
-  };
   return (
     <div>
-      <button onClick={mainloginclick}>로그인</button>
       <Container>
         <MonthNavigation month={month} setMonth={setMonth} />
         <CreateExpense
